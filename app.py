@@ -2,7 +2,7 @@ import csv
 from flask import Flask
 from flask import abort
 from flask import render_template
-app = Flask(__name__)  # Note the double underscores on each side!
+MyApp = Flask(__name__)  # Note the double underscores on each side!
 
 def get_csv():
     csv_path = './static/la-riots-deaths.csv'
@@ -11,13 +11,13 @@ def get_csv():
     csv_list = list(csv_obj)
     return csv_list
 
-@app.route("/")
+@MyApp.route("/")
 def index():
     template = 'index.html'
     object_list = get_csv()
     return render_template(template, object_list=object_list)
 
-@app.route('/<row_id>/')
+@MyApp.route('/<row_id>/')
 def detail(row_id):
     template = 'detail.html'
     object_list = get_csv()
@@ -27,4 +27,4 @@ def detail(row_id):
     abort(404)
 
 if __name__ == '__main__':
-    app.run(debug=True, use_reloader=True)
+    MyApp.run(debug=True, use_reloader=True)
